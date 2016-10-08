@@ -1,0 +1,9 @@
+/* -p option will create both folders with single command,if /project1 does not exists */
+
+hadoop dfs -mkdir -p /project1/titanic
+
+/* copy the data from local directory to HDFS with flume */
+flume-ng agent -n agent1 -c conf -f /home/neeraj/Desktop/ACADGILD_PROJECTS/Project_1_Titanic/file_copy_flume.conf
+
+
+

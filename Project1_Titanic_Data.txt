@@ -1,0 +1,36 @@
+
+/* created external table in hive to hold the data from file*/
+
+create external table tbl_titanic(pasangerid int,servived int,pclass int,name string,sex string,age int,sibsp int,
+parch int,ticket string,fair int,cabin string,embark string) row format delimited fields terminated by ',' stored as textfile;
+
+
+/* copy data in hive table from hdfs */
+load data inpath 'hdfs://localhost:9000/project1/titanic/TitanicData.txt' into table tbl_titanic;
+
+
+/* problem statement 1:to get average fair by class */
+select avg(fair),pclass from tbl_titanic group by pclass;
+
+/* result*/
+83.74537037037037	1
+20.456521739130434	2
+13.173116089613035	3
+
+/* problem statement 2:to get count of alive people by class  and embark as S */
+select count(pasangerid),pclass from tbl_titanic where embark == 'S' and servived == 1 group by pclass;
+
+/* result*/
+74	1
+76	2
+67	3
+
+/* problem statement 3:to get count of dead people by each class */
+select count(pasangerid),pclass from tbl_titanic where  servived == 0 group by pclass;
+
+/* result*/
+80	1
+97	2
+372	3
+
+
